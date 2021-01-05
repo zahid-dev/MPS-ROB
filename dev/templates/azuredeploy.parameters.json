@@ -1,0 +1,82 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentParameters.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "vnetName": {
+            "value": "VNet1"
+          },
+          "vnetAddressPrefix": {
+            "value": "10.3.0.0/16"
+          },
+          "subnet1Prefix": {
+            "value": "10.3.1.0/24"
+          },
+          "subnet1Name": {
+            "value": "MPS-ROB-PUBLIC-SNET"
+          },
+          "subnet2Prefix": {
+            "value": "10.3.2.0/24"
+          },
+          "subnet2Name": {
+            "value": "MPS-ROB-APP-SNET"
+          },
+          "subnet3Prefix": {
+            "value": "10.3.3.0/24"
+          },
+          "subnet3Name": {
+            "value": "MPS-ROB-WORKLOAD-SNET"
+          },
+        "sqlServerName": {
+            "value": "MPS-ROB-SQL"
+        },
+        "location": {
+            "value": "uksouth"
+        },
+        "sqlAdministratorLogin": {
+            "value": "masteruser"
+        },
+        "sqlAdministratorLoginPassword": {
+            "value": ""
+        },
+        "allowAzureServicesToAccessSqlServer": {
+            "value": true
+        },
+        "sqlConnectionType": {
+            "value": "Default"
+        },
+        "sqlDBName": {
+            "value": "MPS-ROB-ORCH-DB"
+        },
+        "keyVaultName": {
+            "value": "MPS-ROB-Keyvault"
+          },
+          "enabledForDeployment": {
+            "value": false
+          },
+          "enabledForDiskEncryption": {
+            "value": false
+          },
+          "enabledForTemplateDeployment": {
+            "value": false
+          },
+          "tenantId": {
+            "value": "[subscription().tenantId]"
+          },
+          "objectId": {
+            "type": "string"
+          },
+          "keysPermissions": {
+            "value": [
+              "list"
+            ]
+          },
+          "secretsPermissions": {
+            "value": [
+              "list"
+            ]
+          },
+          "skuName": {
+            "value": "Standard"
+          }
+    }
+  }

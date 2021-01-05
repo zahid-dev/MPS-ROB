@@ -1,0 +1,80 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+      "sqlServerName":  {
+        "type": "string",
+        "metadata": {
+          "description": "The display name of the SQL logical server"
+        }
+      },
+      "sqlDBName":  {
+        "type": "string",
+        "metadata": {
+          "description": "The display name of the SQL logical server"
+        }
+      },
+      "sqlAdministratorLogin": {
+        "type": "string",
+        "metadata": {
+          "description": "The administrator username of the SQL logical server"
+        }
+      },
+      "sqlAdministratorLoginPassword": {
+        "type": "securestring",
+        "metadata": {
+          "description": "The administrator password of the SQL logical server."
+        }
+      },
+      "location": {
+        "type": "string",
+        "metadata": {
+          "description": "Location for all resources."
+        }
+      }
+    },
+    "variables": {
+      "databaseCollation": "SQL_Latin1_General_CP1_CI_AS"
+    },
+    "resources": [
+      {
+        "type": "Microsoft.Sql/servers",
+        "apiVersion": "2020-02-02-preview",
+        "name": "[parameters('sqlServerName')]",
+        "location": "[parameters('location')]",
+        "kind": "v12.0",
+        "tags": {
+          "displayName": "[parameters('sqlServerName')]"
+        },
+        "properties": {
+          "administratorLogin": "[parameters('sqlAdministratorLogin')]",
+          "administratorLoginPassword": "[parameters('sqlAdministratorLoginPassword')]",
+          "version": "12.0",
+          "publicNetworkAccess": "Disabled"
+        },
+        "resources": [
+        ]
+      },
+      {
+        "type": "databases",
+        "apiVersion": "2019-06-01-preview",
+        "name": "[parameters('sqlDBName')]",
+        "sku": {
+            "name": "Basic",
+            "tier": "Basic",
+            "capacity": 5
+        },
+        "location": "[parameters('location')]",
+        "tags": {
+            "Environment": "Customer",
+            "AssociatedDataSet": "CovidBritishColumbia"
+        },
+        "properties": {
+            "collation": "[variables('databaseCollation')]"
+        },
+        "dependsOn": [
+            "[resourceId('Microsoft.Sql/servers', concat(parameters('sqlServerName')))]"
+        ]
+    }
+    ]
+  }
